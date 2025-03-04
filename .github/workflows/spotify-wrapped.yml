@@ -3,7 +3,7 @@ name: Spotify Wrapped Automation
 on:
   workflow_dispatch:  # Permite ejecutarlo manualmente
   schedule:
-    - cron: '0 * * * *'  # Ejecuta cada hora (ajústalo si es necesario)
+    - cron: '0 */2 * * *'  # Ejecuta cada hora (ajústalo si es necesario)
 
 jobs:
   run-script:
