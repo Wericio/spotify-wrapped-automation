@@ -24,7 +24,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Create Google Credentials file
-        run: echo '${{ secrets.GOOGLE_CREDENTIALS }}' | base64 --decode > spotify-wrapped-personal-476133760b00.json
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" | base64 --decode > spotify-wrapped-personal-476133760b00.json
+          cat spotify-wrapped-personal-476133760b00.json  # Para depuración
 
       - name: Run script
         run: python save_to_sheets.py
