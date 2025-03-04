@@ -25,11 +25,15 @@ jobs:
 
       - name: Create Google Credentials file
         run: |
+          echo "✅ Iniciando la creación del archivo de credenciales..."
           echo "${{ secrets.GOOGLE_CREDENTIALS }}" > credentials_base64.txt
+          echo "📄 Archivo base64 creado, mostrando contenido:"
           cat credentials_base64.txt  # Verificar el contenido en los logs
           base64 --decode credentials_base64.txt > spotify-wrapped-personal-476133760b00.json
+          echo "📂 Archivo JSON decodificado, mostrando contenido:"
           cat spotify-wrapped-personal-476133760b00.json  # Verificar que se creó correctamente
-          
+        
+
       - name: Check if JSON file exists
         run: ls -l spotify-wrapped-personal-476133760b00.json
                 
