@@ -5,8 +5,9 @@ import os
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
-    redirect_uri=os.getenv("SPOTIPY_REDIRECT_URI"),
-    scope="user-top-read playlist-modify-public playlist-modify-private"
+    redirect_uri="http://127.0.0.1:9090",  # Usa este, no "localhost"
+    scope="user-top-read playlist-modify-public playlist-modify-private",
+    cache_path=".spotify_cache"
 ))
 
 # Nombre de la playlist personalizada
