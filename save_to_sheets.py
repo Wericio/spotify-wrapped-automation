@@ -25,7 +25,7 @@ existing_tracks = [(row[0], row[1], row[2], row[3]) for row in data[1:]]  # (Fec
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
-    redirect_uri=os.getenv("SPOTIPY_REDIRECT_URI"),
+    redirect_uri="http://127.0.0.1:9090",  # 🔹 Cambiado de "localhost" a "127.0.0.1"
     scope="user-read-recently-played"
 ))
 
