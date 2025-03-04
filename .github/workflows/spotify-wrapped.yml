@@ -25,8 +25,14 @@ jobs:
 
       - name: Create Google Credentials file
         run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}" | base64 --decode > spotify-wrapped-personal-476133760b00.json
-          cat spotify-wrapped-personal-476133760b00.json  # Para depuración
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > credentials_base64.txt
+          cat credentials_base64.txt  # Verificar el contenido en los logs
+          base64 --decode credentials_base64.txt > spotify-wrapped-personal-476133760b00.json
+          cat spotify-wrapped-personal-476133760b00.json  # Verificar que se creó correctamente
+          
+      - name: Check if JSON file exists
+        run: ls -l spotify-wrapped-personal-476133760b00.json
+                
 
       - name: Run script
         run: python save_to_sheets.py
