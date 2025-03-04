@@ -19,14 +19,28 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install --upgrade pip -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Create Google Credentials file
         run: echo "${{ secrets.GOOGLE_CREDENTIALS }}" | base64 --decode > spotify-wrapped-personal-476133760b00.json
 
-      - name: Run script
+      - name: Check if JSON file exists
+        run: ls -l spotify-wrapped-personal-476133760b00.json
+
+      # 🟢 Guardar las últimas canciones reproducidas en Sheet1
+      - name: Run Spotify data script
         run: python save_to_sheets.py
         env:
           SPOTIPY_CLIENT_ID: ${{ secrets.SPOTIPY_CLIENT_ID }}
           SPOTIPY_CLIENT_SECRET: ${{ secrets.SPOTIPY_CLIENT_SECRET }}
           SPOTIPY_REDIRECT_URI: ${{ secrets.SPOTIPY_REDIRECT_URI }}
+
+      # 🟢 Generar el ranking de canciones más escuchadas (Top Songs)
+      - name: Run Top Songs script
+        run: python generate_top_songs.py
+
+      # 🟢 Generar el ranking de artistas más escuchados (Top Artists)
+      - name: Run Top Artists script
+        run: python generate_top_artists.py
